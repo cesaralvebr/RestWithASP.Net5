@@ -11,6 +11,6 @@ namespace RestWithASP.Net5.Business.InterfacesBusiness
         Person Update(Person person);
         IEnumerable<Person> FindAll();
         void Delete(long Id);
-        bool Exists(long Id);
+
     }
 }
