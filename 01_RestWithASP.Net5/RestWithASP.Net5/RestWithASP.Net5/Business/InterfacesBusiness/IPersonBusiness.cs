@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace RestWithASP.Net5.Business.Interfaces
+namespace RestWithASP.Net5.Business.InterfacesBusiness
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         Person Create(Person person);
         Person FindById(long Id);
         Person Update(Person person);
         IEnumerable<Person> FindAll();
         void Delete(long Id);
+        bool Exists(long Id);
     }
 }
