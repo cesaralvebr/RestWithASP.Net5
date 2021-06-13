@@ -44,7 +44,7 @@ namespace RestWithASP.Net5.Repository.Implementations
 
         public Person Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
+            if (!Exists(person.Id)) return null;
 
 
             var _result = _mySQLContext.People.SingleOrDefault(p => p.Id.Equals(person.Id));
