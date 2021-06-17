@@ -9,30 +9,30 @@ namespace RestWithASP.Net5.Repository.Implementations
 {
     public class PersonRepositoryImplementation : IPersonRepository
     {
-        private MySQLContext _mySQLContext;
+        private readonly MySQLContext _context;
 
         public PersonRepositoryImplementation(MySQLContext mySQLContext)
         {
-            _mySQLContext = mySQLContext;
+            _context = mySQLContext;
         }
 
         public IEnumerable<Person> FindAll()
         {
-            return _mySQLContext.People.ToList();
+            return _context.People.ToList();
         }
 
 
 
         public Person FindById(long Id)
         {
-            return _mySQLContext.People.SingleOrDefault(p => p.Id.Equals(Id));
+            return _context.People.SingleOrDefault(p => p.Id.Equals(Id));
         }
         public Person Create(Person person)
         {
             try
             {
-                _mySQLContext.Add(person);
-                _mySQLContext.SaveChanges();
+                _context.Add(person);
+                _context.SaveChanges();
             }
             catch (Exception)
             {
@@ -46,15 +46,14 @@ namespace RestWithASP.Net5.Repository.Implementations
         {
             if (!Exists(person.Id)) return null;
 
-
-            var _result = _mySQLContext.People.SingleOrDefault(p => p.Id.Equals(person.Id));
+            var _result = _context.People.SingleOrDefault(p => p.Id.Equals(person.Id));
 
             if (_result != null)
             {
                 try
                 {
-                    _mySQLContext.Entry(_result).CurrentValues.SetValues(person);
-                    _mySQLContext.SaveChanges();
+                    _context.Entry(_result).CurrentValues.SetValues(person);
+                    _context.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -69,14 +68,14 @@ namespace RestWithASP.Net5.Repository.Implementations
 
         public void Delete(long Id)
         {
-            var _result = _mySQLContext.People.SingleOrDefault(p => p.Id.Equals(Id));
+            var _result = _context.People.SingleOrDefault(p => p.Id.Equals(Id));
 
             if (_result != null)
             {
                 try
                 {
-                    _mySQLContext.People.Remove(_result);
-                    _mySQLContext.SaveChanges();
+                    _context.People.Remove(_result);
+                    _context.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -88,7 +87,7 @@ namespace RestWithASP.Net5.Repository.Implementations
 
         private bool Exists(long id)
         {
-            return _mySQLContext.People.Any(p => p.Id.Equals(id));
+            return _context.People.Any(p => p.Id.Equals(id));
         }
     }
 }
