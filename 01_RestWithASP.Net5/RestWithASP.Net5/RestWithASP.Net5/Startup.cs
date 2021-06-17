@@ -48,6 +48,8 @@ namespace RestWithASP.Net5
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
+            services.AddScoped<IBooksRepository, BooksRepositoryImplementation>();
         }
 
 
@@ -78,7 +80,7 @@ namespace RestWithASP.Net5
                 var envolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connection);
                 var envolve = new Evolve.Evolve(envolveConnection, msg => Log.Information(msg))
                 {
-                    Locations = new List<string> { "db/migrations", "db/dataset" },
+                    Locations = new List<string> { "Db/Migrations", "Db/Dataset" },
                     IsEraseDisabled = true
                 };
                 envolve.Migrate();
