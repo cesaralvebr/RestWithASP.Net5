@@ -8,11 +8,9 @@ using RestWithASP.Net5.Context;
 using RestWithASP.Net5.Business.Implementations;
 using RestWithASP.Net5.Business.InterfacesBusiness;
 using System;
-using RestWithASP.Net5.Repository.Interfaces;
-using RestWithASP.Net5.Repository.Implementations;
 using Serilog;
-using Pomelo.EntityFrameworkCore.MySql;
 using System.Collections.Generic;
+using RestWithASP.Net5.Repository.Generic;
 
 namespace RestWithASP.Net5
 {
@@ -46,10 +44,9 @@ namespace RestWithASP.Net5
             //Versioning api
             services.AddApiVersioning();
             //Dependency Injection
-            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
-            services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();
-            services.AddScoped<IBooksRepository, BooksRepositoryImplementation>();
+            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();           
+            services.AddScoped<IBooksBusiness, BooksBusinessImplementation>();     
+            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
         }
 
 
